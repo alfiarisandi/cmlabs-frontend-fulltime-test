@@ -1,14 +1,14 @@
 .detail-content{
     display: flex;
     flex-direction: row;
-    align-items: start;
+    align-items: flex-start;
     flex-wrap: wrap;
 }
 .content-left{
     display: flex;
     flex-direction: column;
-    justify-content: start;
-    align-items: start;
+    justify-content: flex-start;
+    align-items: flex-start;
     width: 40%;
 }
 

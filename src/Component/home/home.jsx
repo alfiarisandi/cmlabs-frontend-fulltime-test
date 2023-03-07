@@ -10,7 +10,6 @@ function Home() {
   const [searchIngredients, setSearchIngredients] = useState("")
   const navigate = useNavigate()
 
-
   useEffect(() => {
     axios.get('http://www.themealdb.com/api/json/v1/1/list.php', {
       params: {
@@ -57,7 +56,7 @@ function Home() {
                 <div className='container d-flex flex-row mt-5 gap-3 content'>
                   
                   {
-                    ingredients?.filter(v => v.strIngredient.toLowerCase().includes(searchIngredients.toLowerCase())).slice(0,16).map((item) => {
+                    ingredients?.filter(v => v.strIngredient.toLowerCase().includes(searchIngredients.toLowerCase())).map((item) => {
                       return(
                         <>
                         <div className='card-ingredients' key={item.idIngredient} onClick={() => navigate('/meals/'+item.strIngredient)}>

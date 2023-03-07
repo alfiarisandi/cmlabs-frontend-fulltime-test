@@ -12,6 +12,7 @@ function DetailMeal() {
 
     const instruction = detailMeals?.strInstructions?.split(".")
     const [recipe, setRecipe] = useState()
+    const [Measure, setMeasure] = useState()
 
     useEffect(() => {
         axios.get('http://www.themealdb.com/api/json/v1/1/lookup.php', {
@@ -22,14 +23,22 @@ function DetailMeal() {
         .then(response => {
           setDetailMeals(response.data.meals[0])
           let ingredient =Object.keys(response.data.meals[0])
-          .filter((key) => key.includes("strIngredient"))
-          .reduce((obj, key) => {
-              return Object.assign(obj, {
-                  [key]: response.data.meals[0][key]
-              });
-          }, {})
+            .filter((key) => key.includes("strIngredient"))
+            .reduce((obj, key) => {
+                return Object.assign(obj, {
+                    [key]: response.data.meals[0][key]
+                });
+            }, {})
+        let measure = Object.keys(response.data.meals[0])
+            .filter((key) => key.includes("strMeasure"))
+            .reduce((obj, key) => {
+                return Object.assign(obj, {
+                    [key]: response.data.meals[0][key]
+                });
+            }, {})
 
           setRecipe(Object.values(ingredient))
+          setMeasure(Object.values(measure))
         })
         .catch(error => {
           // handle error
@@ -81,12 +90,11 @@ function DetailMeal() {
                     <h3>Recipe</h3>
                     <ul>
                     {
-                            recipe?.map(item => {
-                                if(item !== "" && item !== null){
+                            recipe?.filter(item => item!=="" && item !== null).map((item, index)=> {
                                     return(
-                                        <li>{item}</li>
+                                        <li>{Measure[index]}{' '}{item}</li>
                                     )
-                                }
+                                
                             })
                         }
                         
@@ -96,12 +104,10 @@ function DetailMeal() {
                     <h3>Instructions</h3>
                     <ul>
                         {
-                            instruction?.map(item => {
-                                if(item !== ""){
-                                    return(
-                                        <li>{item}</li>
-                                    )
-                                }
+                            instruction?.filter(item => item!=="").map(item => {
+                                return(
+                                    <li>{item}</li>
+                                )
                             })
                         }
                     </ul>

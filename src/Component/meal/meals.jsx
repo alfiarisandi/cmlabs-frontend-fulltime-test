@@ -56,7 +56,7 @@ function Meals() {
         <div className='container d-flex flex-row mt-5 gap-3 content'>
                 
             {
-                Meals?.filter(v => v.strMeal.toLowerCase().includes(searchMeal.toLowerCase())).slice(0,16).map((item) => {
+                Meals?.filter(v => v.strMeal.toLowerCase().includes(searchMeal.toLowerCase())).map((item) => {
                     return(
                     <>
                         <div className='card-meal' key={parseInt(item.idMeal)} onClick={() => navigate('/meals/'+ingredients+'/'+item.idMeal)}>
